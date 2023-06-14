@@ -1,1 +1,12 @@
-<p>join-form works!</p>
+<form [formGroup]="user" (ngSubmit)="submitJoinForm()">
+  <label for="name">Name</label>
+  <input type="text" id="name" formControlName="name" />
+  <br />
+  <label for="url">Daily room URL</label>
+  <input type="text" id="url" formControlName="url" />
+  <br />
+  <input type="submit" />
+</form>
+
+<p>name: {{ user.value.name }}</p>
+<p>url: {{ user.value.url }}</p>
