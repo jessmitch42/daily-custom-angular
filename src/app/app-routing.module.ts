@@ -6,7 +6,7 @@ import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
   { path: "call/:id", component: CallComponent },
-  { path: "/", component: HomeComponent },
+  { path: "", component: HomeComponent },
   { path: "**", component: PageNotFoundComponent },
 ];
 
