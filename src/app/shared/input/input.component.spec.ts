@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JoinFormComponent } from './join-form.component';
+import { InputComponent } from './input.component';
 
-describe('JoinFormComponent', () => {
-  let component: JoinFormComponent;
-  let fixture: ComponentFixture<JoinFormComponent>;
+describe('InputComponent', () => {
+  let component: InputComponent;
+  let fixture: ComponentFixture<InputComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [JoinFormComponent]
+      declarations: [InputComponent]
     });
-    fixture = TestBed.createComponent(JoinFormComponent);
+    fixture = TestBed.createComponent(InputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,1 +1,12 @@
-<p>home works!</p>
+<h1>Call object Angular demo</h1>
+<p>
+  Demo a custom call interface built using Daily's Client SDK for JavaScript
+</p>
+<!-- <app-button (btnClick)="handleButtonClick()" text="CLICK ME" [isDisabled]="false"></app-button> -->
+<form [formGroup]="joinForm" class="join-form">
+  <label for="name">Your name</label>
+  <input type="text" id="name" />
+  <label for="url">Daily room URL</label>
+  <input type="text" id="url" />
+  <input type="submit" value="Join call" />
+</form>

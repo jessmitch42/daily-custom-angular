@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { ReactiveFormsModule } from "@angular/forms";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { JoinFormComponent } from './join-form/join-form.component';
-import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { HomeComponent } from "./home/home.component";
+import { ButtonComponent } from "./shared/button/button.component";
+import { SharedModule } from "./shared/shared.module";
+
 
 @NgModule({
-  declarations: [AppComponent, JoinFormComponent, HomeComponent],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  declarations: [AppComponent, HomeComponent],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],
 })
