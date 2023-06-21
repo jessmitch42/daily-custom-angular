@@ -2,11 +2,11 @@
 <p>
   Demo a custom call interface built using Daily's Client SDK for JavaScript
 </p>
-<!-- <app-button (btnClick)="handleButtonClick()" text="CLICK ME" [isDisabled]="false"></app-button> -->
-<form [formGroup]="joinForm" class="join-form">
+
+<form [formGroup]="joinForm" (ngSubmit)="onSubmit()" class="join-form">
   <label for="name">Your name</label>
-  <input type="text" id="name" />
+  <input type="text" id="name" formControlName="name" />
   <label for="url">Daily room URL</label>
-  <input type="text" id="url" />
+  <input type="text" id="url" formControlName="url" />
   <input type="submit" value="Join call" />
 </form>

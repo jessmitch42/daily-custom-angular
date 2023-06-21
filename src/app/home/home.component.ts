@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router";
 import DailyIframe from "@daily-co/daily-js";
 @Component({
   selector: "app-home",
@@ -7,23 +8,41 @@ import DailyIframe from "@daily-co/daily-js";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent {
+  callObject: any = null;
 
- joinForm = this.formBuilder.group({
-    name: '',
-    url: ''
+  ngOnInit() {
+    this.createCallObject();
+  }
+
+  ngOnDestroy() {
+    if (this.callObject) {
+      console.log("destroying call objects");
+      this.callObject.leave();
+      this.callObject.destroy();
+      this.callObject = null;
+    }
+  }
+
+  createCallObject() {
+    console.log("creating call object");
+    this.callObject = DailyIframe.createCallObject();
+  }
+
+  joinForm = this.formBuilder.group({
+    name: "",
+    url: "",
   });
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   onSubmit(): void {
-    // Process checkout data here
-    console.warn('Your order has been submitted', this.joinForm.value);
+    console.log("The join form submitted:", this.joinForm.value);
+    this.callObject
+      .join({
+        url: this.joinForm.value.url,
+        userName: this.joinForm.value.name,
+      })
+      .then((r: any) => console.log(r));
     this.joinForm.reset();
-  }
-  
-  handleButtonClick() {
-    alert("hi");
   }
 }
