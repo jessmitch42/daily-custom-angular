@@ -1,0 +1,12 @@
+<h1>Call object Angular demo</h1>
+<p>
+  Demo a custom call interface built using Daily's Client SDK for JavaScript
+</p>
+
+<form [formGroup]="joinForm" (ngSubmit)="onSubmit()" class="join-form">
+  <label for="name">Your name</label>
+  <input type="text" id="name" formControlName="name" />
+  <label for="url">Daily room URL</label>
+  <input type="text" id="url" formControlName="url" />
+  <input type="submit" value="Join call" />
+</form>
