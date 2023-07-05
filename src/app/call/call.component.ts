@@ -68,7 +68,6 @@ export class CallComponent {
 
   updateParticipants(e: any, participants: any) {
     console.log(e.action);
-    console.log(e);
     const index = participants.findIndex(
       (p: any) => p.session_id === e.participant.session_id
     );
@@ -107,12 +106,16 @@ export class CallComponent {
       this.callEnded.emit();
     });
   }
+
   toggleLocalVideo() {
+    // Event is emitted from VideoTileComponent
     console.log("toggle video");
     const videoOn = this.callObject.localVideo();
     this.callObject.setLocalVideo(!videoOn);
   }
+
   toggleLocalAudio() {
+    // Event is emitted from VideoTileComponent
     console.log("toggle audio");
     const audioOn = this.callObject.localAudio();
     this.callObject.setLocalAudio(!audioOn);

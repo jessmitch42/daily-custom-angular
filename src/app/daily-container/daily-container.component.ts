@@ -6,20 +6,19 @@ import { Component } from "@angular/core";
   styleUrls: ["./daily-container.component.css"],
 })
 export class DailyContainerComponent {
+  // Store callObject in this parent container.
+  // Most callObject logic in CallComponent.
   callObject: any;
 
-  ngOnChanges(i: any, c: any) {
-    console.log("app, on changes");
-    console.log(i, c);
-  }
-
   setCallObject(co: any) {
-    console.log(co);
+    // Event is emitted from CallComponent
     this.callObject = co;
   }
 
   callEnded() {
+    // Event is emitted from CallComponent
     console.log("resetting call object in container");
+    // Truthy value will show the CallComponent; otherwise, the JoinFormComponent is shown.
     this.callObject = null;
   }
 }
