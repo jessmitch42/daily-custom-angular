@@ -21,22 +21,24 @@ export class VideoTileComponent {
 
   ngOnInit() {
     console.log("video tile init");
-    if (this.participant.tracks.video.persistentTrack) {
-      this.videoTrack = new MediaStream([
-        this.participant.tracks.video.persistentTrack,
-      ]);
-    }
-    if (this.participant.tracks.audio.persistentTrack) {
-      this.audioTrack = new MediaStream([
-        this.participant.tracks.audio.persistentTrack,
-      ]);
-    }
+    this.addTracks(this.participant);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     // if (!this.videoTrack)
     console.log("video tile changes");
-    console.log(changes);
+    if (!changes["participant"].previousValue) {
+      this.addTracks(changes["participant"].currentValue);
+    }
+  }
+
+  addTracks(p: any) {
+    if (p.tracks.video.persistentTrack) {
+      this.videoTrack = new MediaStream([p.tracks.video.persistentTrack]);
+    }
+    if (p.tracks.audio.persistentTrack) {
+      this.audioTrack = new MediaStream([p.tracks.audio.persistentTrack]);
+    }
   }
 
   toggleVideo() {

@@ -26,7 +26,7 @@ export class CallComponent {
           this.updateParticipants(e, this.participants)
         )
         .on("participant-left", (e: any) =>
-          this.updateParticipants(e, this.participants)
+          this.handleParticipantLeft(e, this.participants)
         )
         .on("error", this.handleError)
         // camera-error = device permissions issue
@@ -68,10 +68,19 @@ export class CallComponent {
 
   updateParticipants(e: any, participants: any) {
     console.log(e.action);
+    console.log(e);
+    const index = participants.findIndex(
+      (p: any) => p.session_id === e.participant.session_id
+    );
+    participants[index] = e.participant;
+  }
 
-    participants = participants.map((p: any) => {
-      return p.session_id === e.participant.session_id ? e.participant : p;
-    });
+  handleParticipantLeft(e: any, participants: any) {
+    console.log(e.action);
+    const index = participants.findIndex(
+      (p: any) => p.session_id === e.participant.session_id
+    );
+    participants.splice(index, 1);
   }
 
   handleError(e: any) {
