@@ -8,16 +8,26 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class CallComponent {
   @Input() callObject: any;
   @Output() callEnded: EventEmitter<any> = new EventEmitter();
+  participants = [];
 
   ngOnInit() {
     console.log("call, on init");
+    console.log(this.participants);
     if (this.callObject) {
       this.callObject
         .on("joining-meeting", this.handleJoiningMeeting)
-        .on("joined-meeting", this.updateParticpants)
-        .on("participant-joined", this.updateParticpants)
-        .on("participant-updated", this.updateParticpants)
-        .on("participant-left", this.updateParticpants)
+        .on("joined-meeting", (e: any) =>
+          this.handleJoinedMeeting(e, this.participants)
+        )
+        .on("participant-joined", (e: any) =>
+          this.participantJoined(e, this.participants)
+        )
+        .on("participant-updated", (e: any) =>
+          this.updateParticipants(e, this.participants)
+        )
+        .on("participant-left", (e: any) =>
+          this.updateParticipants(e, this.participants)
+        )
         .on("error", this.handleError)
         // camera-error = device permissions issue
         .on("camera-error", this.handleDeviceError)
@@ -30,10 +40,10 @@ export class CallComponent {
     if (this.callObject) {
       this.callObject
         .off("joining-meeting", this.handleJoiningMeeting)
-        .off("joined-meeting", this.updateParticpants)
-        .off("participant-joined", this.updateParticpants)
-        .off("participant-updated", this.updateParticpants)
-        .off("participant-left", this.updateParticpants)
+        .off("joined-meeting", this.handleJoinedMeeting)
+        .off("participant-joined", this.participantJoined)
+        .off("participant-updated", this.updateParticipants)
+        .off("participant-left", this.updateParticipants)
         .off("error", this.handleError)
         // camera-error = device permissions issue
         .off("camera-error", this.handleDeviceError)
@@ -43,17 +53,35 @@ export class CallComponent {
   }
 
   handleJoiningMeeting(e: any) {
-    console.log(e);
+    console.log(e.action);
   }
-  updateParticpants(e: any) {
-    console.log(e);
+
+  handleJoinedMeeting(e: any, participants: any) {
+    console.log(e.action);
+    participants.push(e.participants.local);
   }
+
+  participantJoined(e: any, participants: any) {
+    console.log(e.action);
+    participants.push(e.participant);
+  }
+
+  updateParticipants(e: any, participants: any) {
+    console.log(e.action);
+
+    participants = participants.map((p: any) => {
+      return p.session_id === e.participant.session_id ? e.participant : p;
+    });
+  }
+
   handleError(e: any) {
     console.log(e);
   }
+
   handleDeviceError(e: any) {
     console.log(e);
   }
+
   updateMessages(e: any) {
     console.log(e);
   }
@@ -69,5 +97,15 @@ export class CallComponent {
       this.callObject = null;
       this.callEnded.emit();
     });
+  }
+  toggleLocalVideo() {
+    console.log("toggle video");
+    const videoOn = this.callObject.localVideo();
+    this.callObject.setLocalVideo(!videoOn);
+  }
+  toggleLocalAudio() {
+    console.log("toggle audio");
+    const audioOn = this.callObject.localAudio();
+    this.callObject.setLocalAudio(!audioOn);
   }
 }

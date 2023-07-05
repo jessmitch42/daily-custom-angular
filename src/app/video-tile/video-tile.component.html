@@ -1,1 +1,21 @@
-<p>video-tile works!</p>
+<p>
+  {{ participant.user_name }}
+</p>
+<video
+  *ngIf="videoTrack"
+  autoPlay
+  muted
+  playsInline
+  [srcObject]="videoTrack"></video>
+<audio *ngIf="audioTrack" autoPlay playsInline [srcObject]="audioTrack">
+  <track kind="captions" />
+</audio>
+<div *ngIf="participant.local">
+  <button type="button" (click)="handleLeaveCallClick()">Leave call</button>
+  <button type="button" (click)="toggleVideo()">
+    Turn video {{ !participant.tracks.video }}
+  </button>
+  <button type="button" (click)="toggleAudio()">
+    Turn audio {{ !participant.tracks.audio }}
+  </button>
+</div>

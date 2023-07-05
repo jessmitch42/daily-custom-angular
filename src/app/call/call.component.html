@@ -1,2 +1,8 @@
-<p>call works!</p>
-<button type="button" (click)="leaveCall()">Leave call</button>
+<div class="participants-container">
+  <video-tile
+    *ngFor="let participant of participants"
+    (leaveCallClick)="leaveCall()"
+    (toggleVideoClick)="toggleLocalVideo()"
+    (toggleAudioClick)="toggleLocalAudio()"
+    [participant]="participant"></video-tile>
+</div>
