@@ -1,12 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CallComponent } from "./call/call.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
-import { HomeComponent } from "./home/home.component";
+import { DailyContainerComponent } from "./daily-container/daily-container.component";
 
 const routes: Routes = [
-  { path: "call/:id", component: CallComponent },
-  { path: "", component: HomeComponent },
+  { path: "", component: DailyContainerComponent },
   { path: "**", component: PageNotFoundComponent },
 ];
 

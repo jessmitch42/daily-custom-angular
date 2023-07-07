@@ -1,1 +1,9 @@
-<p>call works!</p>
+<h2>Participant count: {{ participants.length }}</h2>
+<div class="participants-container">
+  <video-tile
+    *ngFor="let participant of participants"
+    (leaveCallClick)="leaveCall()"
+    (toggleVideoClick)="toggleLocalVideo()"
+    (toggleAudioClick)="toggleLocalAudio()"
+    [participant]="participant"></video-tile>
+</div>
