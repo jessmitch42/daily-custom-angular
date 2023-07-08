@@ -8,6 +8,7 @@ import { JoinFormComponent } from "./join-form/join-form.component";
 import { DailyContainerComponent } from "./daily-container/daily-container.component";
 import { VideoTileComponent } from "./video-tile/video-tile.component";
 import { CallComponent } from "./call/call.component";
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CallComponent } from "./call/call.component";
     VideoTileComponent,
     CallComponent,
     VideoTileComponent,
+    ChatComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

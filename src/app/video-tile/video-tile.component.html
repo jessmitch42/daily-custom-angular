@@ -33,21 +33,21 @@
   <button class="media-control" (click)="toggleVideo()">
     <img
       *ngIf="!participant.video"
-      src="../../assets/vid_on.svg"
+      src="../../assets/vid_off.svg"
       alt="Turn video on" />
     <img
       *ngIf="participant.video"
-      src="../../assets/vid_off.svg"
+      src="../../assets/vid_on.svg"
       alt="Turn video on" />
   </button>
   <button class="media-control" (click)="toggleAudio()">
     <img
       *ngIf="!participant.audio"
-      src="../../assets/mic_on.svg"
+      src="../../assets/mic_off.svg"
       alt="Turn mic on" />
     <img
       *ngIf="participant.audio"
-      src="../../assets/mic_off.svg"
+      src="../../assets/mic_on.svg"
       alt="Turn mic on" />
   </button>
 </div>
