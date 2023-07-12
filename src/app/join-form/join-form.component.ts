@@ -18,16 +18,23 @@ export class JoinFormComponent {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  onSubmit(): void {
+  onSubmit(e: any): void {
+    e.preventDefault();
+    const url = this.joinForm.value.url;
+    const userName = this.joinForm.value.name;
+
     this.callObject = DailyIframe.createCallObject();
     console.log("The join form submitted:", this.joinForm.value);
-    this.callObject
-      .join({
-        url: this.joinForm.value.url,
-        userName: this.joinForm.value.name,
-      })
-      .then((r: any) => console.log(r));
+
+    // Join Daily call
+    this.callObject.join({
+      url,
+      userName,
+    });
+
+    // Clear form inputs
     this.joinForm.reset();
+    // Emit event to update callObject var in parent component
     this.setCallObject.emit(this.callObject);
   }
 }

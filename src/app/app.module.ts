@@ -9,6 +9,7 @@ import { DailyContainerComponent } from "./daily-container/daily-container.compo
 import { VideoTileComponent } from "./video-tile/video-tile.component";
 import { CallComponent } from "./call/call.component";
 import { ChatComponent } from './chat/chat.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ChatComponent } from './chat/chat.component';
     CallComponent,
     VideoTileComponent,
     ChatComponent,
+    ErrorMessageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

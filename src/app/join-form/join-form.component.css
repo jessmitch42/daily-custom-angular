@@ -35,3 +35,7 @@
   background-color: #1bebb9;
   cursor: pointer;
 }
+
+.join-form input[type="submit"]:disabled {
+  cursor: not-allowed;
+}
