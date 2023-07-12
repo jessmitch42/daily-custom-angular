@@ -1,6 +1,17 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
-import DailyIframe from "@daily-co/daily-js";
+import DailyIframe, {
+  DailyCall,
+  DailyEventObjectAppMessage,
+  DailyEventObjectParticipant,
+  DailyParticipant,
+  DailyEventObjectFatalError,
+  DailyEventObjectCameraError,
+  DailyEventObjectParticipants,
+  DailyEventObjectNetworkConnectionEvent,
+  DailyRoomInfo,
+  DailyEventObjectParticipantLeft,
+} from "@daily-co/daily-js";
 
 @Component({
   selector: "join-form",
@@ -8,8 +19,8 @@ import DailyIframe from "@daily-co/daily-js";
   styleUrls: ["./join-form.component.css"],
 })
 export class JoinFormComponent {
-  @Output() setCallObject: EventEmitter<any> = new EventEmitter();
-  callObject: any;
+  @Output() setCallObject: EventEmitter<DailyCall> = new EventEmitter();
+  callObject: DailyCall;
 
   joinForm = this.formBuilder.group({
     name: "",
@@ -18,18 +29,14 @@ export class JoinFormComponent {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  onSubmit(e: any): void {
-    e.preventDefault();
-    const url = this.joinForm.value.url;
-    const userName = this.joinForm.value.name;
-
+  onSubmit(): void {
     this.callObject = DailyIframe.createCallObject();
     console.log("The join form submitted:", this.joinForm.value);
 
     // Join Daily call
     this.callObject.join({
-      url,
-      userName,
+      userName: this.joinForm.value.name!, // not null to make TypeScript happy
+      url: this.joinForm.value.url!,
     });
 
     // Clear form inputs

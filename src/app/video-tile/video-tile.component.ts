@@ -5,6 +5,7 @@ import {
   Output,
   SimpleChanges,
 } from "@angular/core";
+import { DailyParticipant } from "@daily-co/daily-js";
 
 @Component({
   selector: "video-tile",
@@ -12,20 +13,20 @@ import {
   styleUrls: ["./video-tile.component.css"],
 })
 export class VideoTileComponent {
-  @Input() participant: any;
-  videoTrack: any;
-  audioTrack: any;
-  @Output() leaveCallClick: EventEmitter<any> = new EventEmitter();
-  @Output() toggleVideoClick: EventEmitter<any> = new EventEmitter();
-  @Output() toggleAudioClick: EventEmitter<any> = new EventEmitter();
+  @Input() participant: DailyParticipant;
+  videoTrack: MediaStream;
+  audioTrack: MediaStream;
+  @Output() leaveCallClick: EventEmitter<null> = new EventEmitter();
+  @Output() toggleVideoClick: EventEmitter<null> = new EventEmitter();
+  @Output() toggleAudioClick: EventEmitter<null> = new EventEmitter();
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log("video tile init");
     // Add tracks when the participant joins
     this.addTracks(this.participant);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     console.log("video tile changes");
     if (!changes["participant"].previousValue) {
       // If tracks weren't available on join, add tracks after the first update
@@ -33,7 +34,7 @@ export class VideoTileComponent {
     }
   }
 
-  addTracks(p: any) {
+  addTracks(p: DailyParticipant): void {
     if (p.tracks.video.persistentTrack) {
       this.videoTrack = new MediaStream([p.tracks.video.persistentTrack]);
     }
@@ -42,13 +43,13 @@ export class VideoTileComponent {
     }
   }
 
-  toggleVideo() {
+  toggleVideo(): void {
     this.toggleVideoClick.emit();
   }
-  toggleAudio() {
+  toggleAudio(): void {
     this.toggleAudioClick.emit();
   }
-  handleLeaveCallClick() {
+  handleLeaveCallClick(): void {
     this.leaveCallClick.emit();
   }
 }

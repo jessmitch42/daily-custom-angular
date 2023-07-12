@@ -9,7 +9,7 @@ export class ErrorMessageComponent {
   @Input() error: any;
   @Output() reset: EventEmitter<any> = new EventEmitter();
 
-  handleGoHome() {
+  handleGoHome(): void {
     // Emit event to alert parent component to reset UI
     this.reset.emit();
   }

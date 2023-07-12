@@ -2,7 +2,7 @@
   Demo a custom call interface built using Daily's Client SDK for JavaScript
 </p>
 
-<form [formGroup]="joinForm" (ngSubmit)="onSubmit($event)" class="join-form">
+<form [formGroup]="joinForm" (ngSubmit)="onSubmit()" class="join-form">
   <label for="name">Your name</label>
   <input type="text" id="name" formControlName="name" required />
   <label for="url">Daily room URL</label>

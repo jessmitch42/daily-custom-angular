@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
+import { DailyEventObjectAppMessage } from "@daily-co/daily-js";
 interface Message {
   name: string;
   message: string;
@@ -22,38 +23,37 @@ export class ChatComponent {
 
   chatIsOpen = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log("chat, on init");
     if (!this.callObject) return;
     console.log("set app message");
-    this.callObject.on("app-message", (e: any) =>
-      this.handleNewMessage(e, this.messages)
+    this.callObject.on("app-message", (e: DailyEventObjectAppMessage) =>
+      this.handleNewMessage(e)
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     console.log("chat, on destroy");
     if (!this.callObject) return;
-    this.callObject.off("app-message", (e: any) =>
-      this.handleNewMessage(e, this.messages)
-    );
+    this.callObject.off("app-message", this.handleNewMessage);
     // Reset local var
     this.messages = [];
   }
 
   // Show/hide chat in UI
-  toggleChatView() {
+  toggleChatView(): void {
     this.chatIsOpen = !this.chatIsOpen;
   }
 
   // Add new message to message array to be displayed in UI
-  handleNewMessage(e: any, messages: any) {
+  handleNewMessage(e: DailyEventObjectAppMessage): void {
     console.log(e);
-    messages.push({ message: e.data.message, name: e.data.name });
+    if (e.data.event === "request-chat-history") return;
+    this.messages.push({ message: e.data.message, name: e.data.name });
   }
 
   // Submit chat form if user presses Enter key while the textarea has focus
-  onKeyDown(event: any) {
+  onKeyDown(event: any): void {
     if (event.key === "Enter") {
       // Prevent a carriage return
       event.preventDefault();
@@ -61,7 +61,7 @@ export class ChatComponent {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     console.log(this.chatForm.value.message);
     const message = this.chatForm.value.message?.trim();
     if (!message) return;
