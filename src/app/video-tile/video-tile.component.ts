@@ -21,13 +21,11 @@ export class VideoTileComponent {
   @Output() toggleAudioClick: EventEmitter<null> = new EventEmitter();
 
   ngOnInit(): void {
-    console.log("video tile init");
     // Add tracks when the participant joins
     this.addTracks(this.participant);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("video tile changes");
     if (!changes["participant"].previousValue) {
       // If tracks weren't available on join, add tracks after the first update
       this.addTracks(changes["participant"].currentValue);
