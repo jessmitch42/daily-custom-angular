@@ -1,4 +1,4 @@
-<h2>Participant count: {{ participants.length }}</h2>
+<h2 *ngIf="!error">Participant count: {{ participants.length }}</h2>
 <error-message
   *ngIf="error"
   [error]="error"

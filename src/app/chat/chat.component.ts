@@ -24,16 +24,13 @@ export class ChatComponent {
   chatIsOpen = false;
 
   ngOnInit(): void {
-    console.log("chat, on init");
     if (!this.callObject) return;
-    console.log("set app message");
     this.callObject.on("app-message", (e: DailyEventObjectAppMessage) =>
       this.handleNewMessage(e)
     );
   }
 
   ngOnDestroy(): void {
-    console.log("chat, on destroy");
     if (!this.callObject) return;
     this.callObject.off("app-message", this.handleNewMessage);
     // Reset local var
@@ -62,7 +59,6 @@ export class ChatComponent {
   }
 
   onSubmit(): void {
-    console.log(this.chatForm.value.message);
     const message = this.chatForm.value.message?.trim();
     if (!message) return;
 

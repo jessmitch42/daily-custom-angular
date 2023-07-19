@@ -22,7 +22,6 @@ export class CallComponent {
   participants: Array<DailyParticipant> = [];
 
   ngOnInit(): void {
-    console.log("call, on init");
     if (!this.callObject) return;
     // Add event listeners for Daily events
     this.callObject
@@ -31,12 +30,10 @@ export class CallComponent {
       .on("participant-joined", this.participantJoined)
       .on("participant-updated", this.updateParticipants)
       .on("participant-left", this.handleParticipantLeft)
-      .on("error", this.handleError)
-      // camera-error = device permissions issue
-      .on("camera-error", this.handleDeviceError);
+      .on("error", this.handleError);
   }
+
   ngOnDestroy(): void {
-    console.log("call, on destroy");
     if (!this.callObject) return;
     // Remove event listeners for Daily events
     this.callObject
@@ -45,8 +42,7 @@ export class CallComponent {
       .off("participant-joined", this.participantJoined)
       .off("participant-updated", this.updateParticipants)
       .off("participant-left", this.handleParticipantLeft)
-      .off("error", this.handleError)
-      .off("camera-error", this.handleDeviceError);
+      .off("error", this.handleError);
   }
 
   handleJoiningMeeting(e: DailyEventObjectNoPayload | undefined): void {
@@ -63,7 +59,6 @@ export class CallComponent {
 
   participantJoined = (e: DailyEventObjectParticipant | undefined) => {
     if (!e) return;
-
     console.log(e.action);
     // Add remote participants to participants list used to display video tiles
     this.participants.push(e.participant);
@@ -94,17 +89,12 @@ export class CallComponent {
     this.participants.splice(index, 1);
   };
 
-  handleError(e: DailyEventObjectFatalError | undefined): void {
+  handleError = (e: DailyEventObjectFatalError | undefined): void => {
     if (!e) return;
     console.log(e);
     // Update local error message displayed in UI.
     this.error = e.errorMsg;
-  }
-
-  handleDeviceError(e: DailyEventObjectCameraError | undefined): void {
-    if (!e) return;
-    console.log(e);
-  }
+  };
 
   leaveCall(): void {
     this.error = "";
@@ -122,14 +112,12 @@ export class CallComponent {
 
   toggleLocalVideo() {
     // Event is emitted from VideoTileComponent
-    console.log("toggle video");
     const videoOn = this.callObject.localVideo();
     this.callObject.setLocalVideo(!videoOn);
   }
 
   toggleLocalAudio() {
     // Event is emitted from VideoTileComponent
-    console.log("toggle audio");
     const audioOn = this.callObject.localAudio();
     this.callObject.setLocalAudio(!audioOn);
   }
